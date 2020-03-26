@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { createTask } from "../redux/action";
+import { createAsyncTask } from "../redux/thunkStore/actions";
 
 class InputForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: ""
+      title: "",
+      id: Date.now().toString()
     };
   }
   changeInputHendler = e => {
@@ -23,16 +24,18 @@ class InputForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
-    const { title } = this.state;
-    if (!title.trim()) {
-      return; // this.props.showAlert("enter some text");
-    }
-    const newTask = {
-      title,
-      id: Date.now().toString()
-    };
-    this.props.createTask(newTask);
-    this.setState({ title: "" });
+    this.props.createAsyncTask(this.state);
+
+    // const { title } = this.state;
+    // if (!title.trim()) {
+    // }
+    // const newTask = {
+    //   title,
+    //   id: Date.now().toString()
+    // };
+    // this.props.createTask(newTask);
+    // this.setState({ title: "" });
+    // this.props.createTask(this.state);
   };
   render() {
     return (
@@ -47,12 +50,12 @@ class InputForm extends React.Component {
             <label htmlFor="formGroupExampleInput">Enter Task</label>
             <input
               onChange={this.changeInputHendler}
-              value={this.state.title}
               type="text"
               className="form-control"
-              id="formGroupExampleInput"
+              id="title"
               placeholder="type some task"
               name="title"
+              required
             />
             <button className="btn btn-primary" type="submit">
               Add Task
@@ -64,8 +67,10 @@ class InputForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = {
-  createTask
+const mapDispatchToProps = dispatch => {
+  return {
+    createAsyncTask: task => dispatch(createAsyncTask(task))
+  };
 };
 
 export default connect(null, mapDispatchToProps)(InputForm);

@@ -1,18 +1,11 @@
-import { ADD_TASK } from "./types";
+const initialState = [];
 
-const initialState = {
-  tasks: []
-};
-
-export const tasksReducer = (state = initialState, action) => {
+const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TASK:
-      return {
-        ...state,
-        tasks: state.tasks.concat([action.payload])
-      };
-
-    default:
-      return state;
+    case "CREATE_TASK":
+      console.log("pog", action.task);
   }
+  return state;
 };
+
+export default tasksReducer;

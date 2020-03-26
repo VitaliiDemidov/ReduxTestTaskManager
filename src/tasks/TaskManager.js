@@ -5,9 +5,6 @@ import { useParams } from "react-router-dom";
 
 const TaskManager = props => {
   let { id } = useParams();
-  // const id = props.match.params.id;
-  console.log(props);
-
   return (
     <div className="container">
       <h1>{`Hello ${id}`}</h1>
