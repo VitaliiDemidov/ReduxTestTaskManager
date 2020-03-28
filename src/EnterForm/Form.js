@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { logIn } from "../redux/thunkStore/authAction";
 
 class Form extends React.Component {
   state = {
@@ -15,9 +17,12 @@ class Form extends React.Component {
 
   hundleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+
+    this.props.logIn(this.state);
   };
+
   render() {
+    const { authError } = this.props;
     return (
       <div className="container">
         <form onSubmit={this.hundleSubmit}>
@@ -46,19 +51,33 @@ class Form extends React.Component {
             />
           </div>
           <div className="form-group form-check"></div>
-          {/* <NavLink to="/TaskManager/id">          </NavLink> */}
           <button type="submit" className="btn btn-primary">
             Log in
-          </button>{" "}
+          </button>
           <NavLink to="/Register">
             <button type="button" className="btn btn-secondary">
               Register
             </button>
           </NavLink>
+          <div>
+            {authError ? (
+              <div className="toast-body ">Oops Fail...try again!!!</div>
+            ) : null}
+          </div>
         </form>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    logIn: creds => dispatch(logIn(creds))
+  };
+};
 
-export default Form;
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

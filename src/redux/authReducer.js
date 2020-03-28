@@ -1,17 +1,22 @@
-const initState = {};
+const initState = {
+  authError: null
+};
 
-export const authReducer = (state = initState, action) => {
+const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case "ADD_TASK":
-      console.log("new task", action.task);
+    case "LOGIN_SUCCES":
+      console.log("login succes");
 
-      return state;
+      return { ...state, authError: null };
 
-    case "CREATE_TASK_ERROR":
-      console.log("cret", action.err);
-      return state;
-
+    case "LOGIN_FAIL":
+      console.log("login fail");
+      return { ...state, authError: "Login failed" };
+    case "LOGOUT_SUCCES":
+      console.log("logout");
+      return { state };
     default:
       return state;
   }
 };
+export default authReducer;

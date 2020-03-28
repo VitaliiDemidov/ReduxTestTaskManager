@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { createAsyncTask } from "../redux/thunkStore/actions";
 
@@ -8,8 +7,7 @@ class InputForm extends React.Component {
     super(props);
 
     this.state = {
-      title: "",
-      id: Date.now().toString()
+      title: ""
     };
   }
   changeInputHendler = e => {
@@ -24,33 +22,18 @@ class InputForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
+    this.setState({ title: "" });
     this.props.createAsyncTask(this.state);
-
-    // const { title } = this.state;
-    // if (!title.trim()) {
-    // }
-    // const newTask = {
-    //   title,
-    //   id: Date.now().toString()
-    // };
-    // this.props.createTask(newTask);
-    // this.setState({ title: "" });
-    // this.props.createTask(this.state);
   };
   render() {
     return (
       <div>
-        <NavLink to="/">
-          <button className="btn btn-warning" type="button">
-            Back
-          </button>
-        </NavLink>
         <form onSubmit={this.submitHandler}>
           <div className="form-group">
             <label htmlFor="formGroupExampleInput">Enter Task</label>
             <input
               onChange={this.changeInputHendler}
-              type="text"
+              value={this.state.title}
               className="form-control"
               id="title"
               placeholder="type some task"

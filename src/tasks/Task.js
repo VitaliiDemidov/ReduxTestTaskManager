@@ -1,6 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
-export const Task = ({ task }) => {
+const Task = ({ task }) => {
   return (
     <div>
       <ul className="list-group">
@@ -20,3 +23,18 @@ export const Task = ({ task }) => {
     </div>
   );
 };
+
+const mapStateToProps = state => {
+  // const tasks = state.firestore.data.Task;
+  // const task = tasks ? tasks[id] : null;
+  return {};
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    {
+      collection: "Task"
+    }
+  ])
+)(Task);
