@@ -1,10 +1,11 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/database";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyAA4QUOptYHiNYVcfluAyBclYRm8-VUw4E",
+  apiKey: process.env.local.APPKEY,
   authDomain: "testmanager-74e79.firebaseapp.com",
   databaseURL: "https://testmanager-74e79.firebaseio.com",
   projectId: "testmanager-74e79",
@@ -15,4 +16,6 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+export { db };
 export default firebase;

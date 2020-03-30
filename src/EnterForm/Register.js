@@ -1,14 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
+import { register } from "../redux/thunkStore/authAction";
+import { connect } from "react-redux";
 
 class Register extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    name: "",
-    lastName: ""
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: ""
+    };
+  }
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value
@@ -17,9 +21,13 @@ class Register extends React.Component {
 
   hundleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.register(this.state);
   };
+
   render() {
+    const { auth } = this.props;
+    if (auth.uid) return <Redirect to="/TaskManager" />;
+
     return (
       <div className="container">
         <form onSubmit={this.hundleSubmit}>
@@ -54,7 +62,7 @@ class Register extends React.Component {
             <input
               onChange={this.handleChange}
               required
-              id="name"
+              id="firstName"
               type="text"
               className="form-control"
               placeholder="..."
@@ -87,4 +95,16 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    register: newUser => dispatch(register(newUser))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

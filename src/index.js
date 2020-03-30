@@ -23,10 +23,11 @@ const store = createStore(
     reduxFirestore(firebase)
   )
 );
+
 const rrfConfig = {
-  useFirestoreForProfile: true,
   userProfile: "users",
-  attachAuthIsReady: true
+  attachAuthIsReady: true,
+  useFirestoreForProfile: true
 };
 
 const rrfProps = {

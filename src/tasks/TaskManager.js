@@ -7,14 +7,14 @@ import { connect } from "react-redux";
 
 const TaskManager = props => {
   let { id } = useParams();
-  const { auth } = props;
+  const { auth, profile } = props;
   if (!auth.uid) return <Redirect to="/" />;
   return (
     <div className="container">
       <button onClick={props.logOut} className="btn btn-warning" type="button">
         LogOUT
       </button>
-      <h1>{`Hello ${id}`}</h1>
+      <h1>{`Hello ${profile}`}</h1>
       <InputForm />
       <TaskList />
     </div>
@@ -22,7 +22,7 @@ const TaskManager = props => {
 };
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError,
+    profile: state.firebase.profile.firstName,
     auth: state.firebase.auth
   };
 };
