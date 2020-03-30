@@ -5,7 +5,7 @@ import "firebase/database";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: process.env.local.APPKEY,
+  apiKey: "AIzaSyAA4QUOptYHiNYVcfluAyBclYRm8-VUw4E",
   authDomain: "testmanager-74e79.firebaseapp.com",
   databaseURL: "https://testmanager-74e79.firebaseio.com",
   projectId: "testmanager-74e79",

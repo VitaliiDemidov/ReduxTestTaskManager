@@ -1,40 +1,43 @@
 import React from "react";
-import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
+import firebase from "../config/Config";
 
 const Task = ({ task }) => {
+  const deleteSubmit = e => {
+    e.preventDefault();
+    let firestore = firebase.firestore();
+    let deleteDoc = firestore
+      .collection("Task")
+      .doc(task.id)
+      .delete();
+    console.log(task.id);
+  };
+
   return (
     <div>
       <ul className="list-group">
         <li className="list-group-item">
           {" "}
-          <strong className="form-control">{task.title}</strong>
+          <input
+            value={task.title}
+            onChange={changeHeandler}
+            disabled
+            className="form-control"
+          />
           <span className="">
-            {`Date:${new Date().toLocaleDateString()}, Time:${new Date().toLocaleTimeString()}`}
+            {`Date:${new Date().toLocaleDateString()}, Time:${new Date().toLocaleTimeString()}, Author:${
+              task.authorLastName
+            } `}
           </span>
         </li>
       </ul>
       <div>
-        <button className="btn btn-danger">delete</button>
+        <button onClick={deleteSubmit} className="btn btn-danger">
+          delete
+        </button>
         <button className="btn btn-primary">edit</button>
-        <button className="btn btn-warning">share</button>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  // const tasks = state.firestore.data.Task;
-  // const task = tasks ? tasks[id] : null;
-  return {};
-};
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    {
-      collection: "Task"
-    }
-  ])
-)(Task);
+export default Task;
