@@ -1,15 +1,17 @@
 export const createAsyncTask = task => {
-  return (dispatch, getState, { getFirestore }) => {
+  return (dispatch, getState, { getFirestore, getFirebase }) => {
     const firestore = getFirestore();
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
+    const firebase = getFirebase();
     firestore
       .collection("Task")
       .add({
         ...task,
         authorFirstName: profile.firstName,
         authorLastName: profile.lastName,
-        authorId
+        authorId,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
         dispatch({ type: "CREATE_TASK", task });
@@ -20,7 +22,6 @@ export const createAsyncTask = task => {
           err
         });
       });
-    console.log(firestore);
   };
 };
 // export const deleteTask = id => {

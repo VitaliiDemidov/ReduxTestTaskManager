@@ -22,7 +22,8 @@ class InputForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
-    this.setState({ title: "" });
+
+    this.setState(prev => ({ ...prev, ...{ title: "" } }));
     this.props.createAsyncTask(this.state);
   };
   render() {
@@ -30,12 +31,13 @@ class InputForm extends React.Component {
       <div>
         <form onSubmit={this.submitHandler}>
           <div className="form-group">
-            <label htmlFor="formGroupExampleInput">Enter Task</label>
+            <label htmlFor="formGroupExampleInput">
+              This is simple add to do task with autoUpdate
+            </label>
             <input
               onChange={this.changeInputHendler}
               value={this.state.title}
               className="form-control"
-              id="title"
               placeholder="type some task"
               name="title"
               required

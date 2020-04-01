@@ -4,11 +4,11 @@ import Task from "./Task";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 
-const TaskList = ({ newTask, author }) => {
+const TaskList = ({ newTask }) => {
   return (
     <div>
       {newTask ? (
-        newTask.map(task => <Task task={task} key={task.id} name={author} />)
+        newTask.map(task => <Task task={task} key={task.id} />)
       ) : (
         <p className="text-center">No tasks</p>
       )}
@@ -18,12 +18,11 @@ const TaskList = ({ newTask, author }) => {
 
 const mapStateToProps = state => {
   return {
-    newTask: state.firestore.ordered.Task,
-    author: state.firebase.profile.lastName
+    newTask: state.firestore.ordered.Task
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "Task" }])
+  firestoreConnect([{ collection: "Task", orderBy: ["timestamp", "desc"] }])
 )(TaskList);
