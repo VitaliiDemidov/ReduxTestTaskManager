@@ -32,7 +32,7 @@ class InputForm extends React.Component {
         <form onSubmit={this.submitHandler}>
           <div className="form-group">
             <label htmlFor="formGroupExampleInput">
-              This is simple add to do task with autoUpdate
+              This is simple 'toDo' task with autoUpdate
             </label>
             <input
               onChange={this.changeInputHendler}
