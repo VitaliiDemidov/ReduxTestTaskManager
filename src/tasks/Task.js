@@ -29,7 +29,7 @@ const Task = ({ task, profile }) => {
       .update(title);
     handleClose();
   };
-  const disabled = [title] > ""; //batton disabled
+  const disabled = [title] || ""; //batton disabled
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

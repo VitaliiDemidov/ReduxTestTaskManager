@@ -10,7 +10,7 @@ const TaskManager = props => {
   if (!auth.uid) return <Redirect to="/" />;
   return (
     <div className="container">
-      <h1>{`Hello, ${profile}`}</h1>
+      <h1>{`Hello, ${profile || ""}`}</h1>
       <button onClick={props.logOut} className="btn btn-warning" type="button">
         LogOUT
       </button>

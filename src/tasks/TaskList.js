@@ -7,11 +7,7 @@ import { compose } from "redux";
 const TaskList = ({ newTask }) => {
   return (
     <div>
-      {newTask ? (
-        newTask.map(task => <Task task={task} key={task.id} />)
-      ) : (
-        <p className="text-center">No tasks</p>
-      )}
+      {newTask && newTask.map(task => <Task task={task} key={task.id} />)}
     </div>
   );
 };
